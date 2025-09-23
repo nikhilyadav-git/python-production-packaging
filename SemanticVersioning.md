@@ -55,3 +55,92 @@
     def sum(a, b, c, d):
         return a + b + c + d
     ``` 
+- Real World Examples
+    - __PATCH__ - "1.1.2" because the addition of type hints is considered a minor update rather than a change in functionality, making it suitable for a patch version. This aligns with semantic versioning, where such adjustments enhance usability without altering existing capabilities.
+        ```python
+        # old version: 1.1.1
+        class DataObject:
+            def __init__(self, columns, name):
+                self.name = name
+                # the double underscore means this attribute is private
+                self.__columns = columns
+    
+        # new version: 1.1.2
+        class DataObject:
+            def __init__(self, columns: list[str], name: str):
+                self.name = name
+                self.__columns = columns
+        ```
+    - __PATCH__ - "1.1.2" because the users are meant to access private attributes of objects. Python use 'name mangling' on attributes starting with **double** underscores to prevent user from accessing the attributes altogaher. **single** underscore communicate that author reserves the right to remove that property at any time ithout considering it as backward incompatiable aka majaor change. A single underscroe says 'use this property at your won risk'
+        ```python
+        # old version: 1.1.1
+        class DataObject:
+            def __init__(self, columns, name):
+                self.name = name
+                # the single underscore means this attribute is private
+                self._columns = columns
+        
+        # new version: 1.1.2
+        class DataObject:
+            def __init__(self, columns, name):
+                self.name = name
+        ```
+    - __MAJOR__ - 2.0.0" because renaming the class means that existing users must change their code, which breaks compatibility; thus, it qualifies as a major version change in semantic versioning. Understanding this concept is crucial, as it highlights the importance of maintaining user code functionality with changes in your project.
+        ```python
+        # old version: 1.1.1
+        class DataObject:
+            def __init__(self, columns, name):
+                self.name = name
+                # the single underscore means this attribute is private
+                self._columns = columns
+        
+        # new version: 2.0.0
+        class DataFrame:
+            def __init__(self, columns: list[str], name: str):
+                self.name = name
+                self._columns = columns
+        ```
+    - __MAJOR__ - "2.0.0" because adding the required fpath parameter changes the __init__() method's signature, breaking existing code that relies on the previous version; this qualifies as a major version change in semantic versioning. This understanding reinforces the importance of maintaining compatibility in your code.
+        ```python
+        # old version: 1.1.1
+        class DataObject:
+            def __init__(self, columns, name):
+                self.name = name
+                # the single underscore means this attribute is private
+                self._columns = columns
+        
+        # new version: 2.0.0
+        from pathlib import Path
+        from typing import Union
+        
+        class DataObject:
+            def __init__(
+                self, 
+                columns: list[str], 
+                name: str, 
+                fpath: Union[str, Path],
+            ):
+                self.name = name
+                self.fpath = fpath
+                self._columns = columns
+        ```
+    - __MINOR__ - "1.2.0" because adding the new fpath parameter with a default value is a minor version change; it enhances functionality without breaking existing code. This demonstrates your understanding of how default parameters can allow for new features while maintaining compatibility, which is a core principle of semantic versioning.
+        ```python
+        # old version: 1.1.1
+        class DataObject:
+            def __init__(self, columns, name):
+                self.name = name
+                # the double underscore means this attribute is private
+                self.__columns = columns
+        
+        # new version: 1.2.0
+        from pathlib import Path
+        from typing import Union, Optional
+        
+        class DataObject:
+            def __init__(self, columns: list[str], name: str, fpath: Optional[Union[str, Path]] = None):
+                self.name = name
+                self.fpath = fpath
+                self.__columns = columns
+        ```
+
