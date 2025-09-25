@@ -36,9 +36,20 @@
     # install pyenv and set zsh config
     brew install pyenv
     brew reinstall pyenv # for upgrade
-    echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
-    echo '[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
-    echo 'eval "$(pyenv init - zsh)"' >> ~/.zshrc
+
+    # add below in zshrc using - 'source ~/.zshrc' and reload using - 'source ~/.zshrc'       
+    ##########################################
+    # Load Homebrew (for M1/M2/M3 Macs) 
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+
+    # pyenv via Homebrew
+    export PYENV_ROOT="$(brew --prefix pyenv)"
+    export PATH="$PYENV_ROOT/bin:$PATH"
+
+    # pyenv initialization
+    eval "$(pyenv init --path)"
+    eval "$(pyenv init -)"
+    ##########################################
     
     # show all versions currently installed
     pyenv versions 
