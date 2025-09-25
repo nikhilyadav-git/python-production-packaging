@@ -7,3 +7,5 @@
 ### [Python Versioning, Virtual Enev](PythonVersions.md)
 
 ### [VSCode Shortcuts](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-macos.pdf)
+
+### [Git](Git.md)
