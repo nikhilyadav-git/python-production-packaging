@@ -14,6 +14,7 @@
     ```sh
     git config --global user.name "Your Name"         # Set your name
     git config --global user.email "you@example.com"  # Set your email
+    git config --global core.editor "code --wait".    # Set VS Code as default editor
     git config --list                                 # View Git config settings
     ```
 - Repository Management
@@ -29,6 +30,15 @@
     git commit -m "Message"                           # Commit staged changes with a message
     git commit -am "Message"                          # Add and commit tracked files in one step
     ```
+- Difference
+    ```sh
+    git diff                                          # Show changes in working directory (unstaged changes)
+    git diff --cached                                 # Show changes that are staged (ready to commit) 
+    git diff --staged                                 # Show changes that are staged (ready to commit)  
+    git diff HEAD                                     # Compare working directory vs last commit
+    git diff <commit1> <commit2>                      # Compare changes between two commits
+    git diff branch1..branch2                         # Compare different branches
+    ```
 - History & Logs
     ```sh
     git log                                           # Show commit history
@@ -40,12 +50,13 @@
 - Branching & Merging
     ```sh
     git branch                                        # List all local branches
+    git branch -m master main                         # Rename Branch master -> main
     git branch <name>                                 # Create a new branch
     git checkout <branch>                             # Switch to a branch
     git switch <branch>                               # Alternative to checkout (modern)
     git switch -c <branch>                            # Create and switch to a new branch
-    git merge <branch>                                # Merge a branch into current
-    git rebase <branch>                               # Rebase current branch onto another
+    git merge <branch>                                # Merge a branch into current, "forked" or branched timeline
+    git rebase <branch>                               # Move/Transfer commits onto another checkout branch, Clean, straight history
     ```
 - Remote Repositories
     ```sh
@@ -58,9 +69,10 @@
     ```
 - Undo & Reset
     ```sh
-    git checkout -- <file>                            # Discard changes in working directory
-    git restore <file>                                # Modern way to discard changes
-    git reset <file>                                  # Unstage a staged file
+    git checkout -- <file>                            # Discards changes in the working directory for specified file and restores it to the state from the index (staging area). If you have not stashed it then changes are gone.
+    git restore <file>                                # Modern way to discard changes in Working Directory, changes lost in WD until stashed
+    git --staged restore <file>                       # Modern way to unstage changes (keeps changes in Working Directory) or you can say git add undo
+    git reset <file>                                  # Same as git --staged restore i.e. unstage a staged file
     git reset --hard                                  # Reset all changes (destructive)
     git revert <commit>                               # Create a new commit that undoes one
     ```
